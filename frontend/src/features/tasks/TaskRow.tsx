@@ -45,12 +45,24 @@ export function TaskRow({ task }: { task: TaskModel }) {
           sx={{
             display: 'flex',
             flexDirection: 'column',
+            width: '100%',
+            pr: 2,
           }}
         >
-          <Input disableUnderline sx={{ fontSize: '1.5em', mb: '5px' }} {...register('title', { required: true })} />
+          <Input
+            multiline
+            disableUnderline
+            sx={{ fontSize: '1.5em', mb: '5px', width: '100%' }}
+            {...register('title', { required: true })}
+          />
           <Textarea {...register('description', { required: true })} />
         </Box>
-        <Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'nowrap',
+          }}
+        >
           {loading && <CircularProgress />}
           {!loading && (
             <>
