@@ -19,7 +19,7 @@ export const useTaskStore = create<{
   },
 
   deleteTask: async (id: string) => {
-    const data = await fetchApi(`task/${id}`, {
+    const data = await fetchApi(`tasks/${id}`, {
       method: 'DELETE',
     });
 
@@ -31,7 +31,7 @@ export const useTaskStore = create<{
   },
 
   createTask: async () => {
-    const data = await fetchApi('task', {
+    const data = await fetchApi('tasks', {
       method: 'POST',
       body: JSON.stringify({
         title: 'New task',
@@ -49,7 +49,7 @@ export const useTaskStore = create<{
   },
 
   updateTask: async (id: string, task: TaskModel) => {
-    const data = await fetchApi(`task/${id}`, {
+    const data = await fetchApi(`tasks/${id}`, {
       method: 'PUT',
       body: JSON.stringify(task),
     });

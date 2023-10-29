@@ -1,5 +1,5 @@
 import { TaskModel } from 'src/models/task.model';
-import { connectMongo } from './mongo';
+import { connectMongo } from './connectMongo';
 import nameGenerator from 'project-name-generator';
 
 export async function seedMongo() {
