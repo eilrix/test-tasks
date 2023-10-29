@@ -5,12 +5,17 @@
   "main": "index.js",
   "scripts": {
     "start:server:dev": "cd backend && npx tsx watch src/main",
+    "start:client:dev": "cd frontend && next",
     "seed": "cd backend && npx tsx src/db/seed"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/material": "^5.14.15",
     "body-parser": "^1.20.2",
     "class-validator": "^0.14.0",
     "cors": "^2.8.5",
@@ -18,7 +23,10 @@
     "fs-extra": "^11.1.1",
     "mongoose": "^7.6.3",
     "mongoose-uuid-ts": "^1.0.4",
+    "next": "^14.0.0",
     "project-name-generator": "^2.1.9",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "reflect-metadata": "^0.1.13",
     "typedi": "^0.10.0",
     "uuid": "^9.0.1"
