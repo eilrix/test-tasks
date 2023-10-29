@@ -6,6 +6,7 @@
   "scripts": {
     "start:server:dev": "cd backend && npx tsx watch src/main",
     "start:client:dev": "cd frontend && next",
+    "start:dev": "npx tsx start-dev",
     "seed": "cd backend && npx tsx src/db/seed"
   },
   "keywords": [],
@@ -39,6 +40,11 @@
     "@types/fs-extra": "^11.0.2",
     "@types/node": "^20.8.2",
     "@types/react": "^18.2.25",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.52.0",
+    "eslint-plugin-react": "^7.33.2",
     "tsx": "^3.13.0",
     "typescript": "^5.2.2"
   }

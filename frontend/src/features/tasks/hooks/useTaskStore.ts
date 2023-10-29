@@ -23,7 +23,7 @@ export const useTaskStore = create<{
       method: 'DELETE',
     });
 
-    console.log(`delete data: `, data);
+    console.log(`delete data: `, data); // eslint-disable-line
 
     await useTaskStore.getState().fetchTasks();
 
@@ -39,9 +39,11 @@ export const useTaskStore = create<{
       }),
     });
 
-    console.log(`create data: `, data);
+    console.log(`create data: `, data); // eslint-disable-line
 
-    await useTaskStore.getState().fetchTasks();
+    if (data?.id) {
+      set((state) => ({ tasks: [data, ...state.tasks] }));
+    }
 
     return data;
   },
@@ -52,9 +54,7 @@ export const useTaskStore = create<{
       body: JSON.stringify(task),
     });
 
-    console.log(`update data: `, data);
-
-    await useTaskStore.getState().fetchTasks();
+    console.log(`update data: `, data); // eslint-disable-line
 
     return data;
   },

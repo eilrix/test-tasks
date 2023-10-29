@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Tasks } from 'src/features/tasks/Tasks';
+import { Tasks } from 'src/features/tasks';
 import { Box } from '@mui/material';
 
 export default function Home() {

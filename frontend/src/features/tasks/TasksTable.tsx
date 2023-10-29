@@ -11,7 +11,7 @@ export function TasksTable() {
   const tasks = useTaskStore((s) => s.tasks);
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} elevation={2}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableBody>
           {tasks.map((task) => (

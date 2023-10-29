@@ -11,7 +11,7 @@ const main = async () => {
   const app = createServer();
 
   app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`); // eslint-disable-line
   });
 };
 

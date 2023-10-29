@@ -1,5 +1,5 @@
 import { validate } from 'class-validator';
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { TaskCreateDto } from 'src/models/task-create.dto';
 import { TaskUpdateDto } from 'src/models/task-update.dto';
 import { TaskService } from 'src/services/task.service';
@@ -10,12 +10,12 @@ export class TaskController {
   @Inject('taskService')
   private taskService: TaskService;
 
-  public async getTasks(req: Request, res: Response, next: NextFunction) {
+  public async getTasks(req: Request, res: Response) {
     const tasks = await this.taskService.getTasks();
     res.json(tasks);
   }
 
-  public createTask = async (req: Request, res: Response, next: NextFunction) => {
+  public createTask = async (req: Request, res: Response) => {
     const input = new TaskCreateDto();
     input.title = req.body.title;
     input.description = req.body.description;
@@ -30,7 +30,7 @@ export class TaskController {
     res.json(task);
   };
 
-  public updateTask = async (req: Request, res: Response, next: NextFunction) => {
+  public updateTask = async (req: Request, res: Response) => {
     const input = new TaskUpdateDto();
     input.title = req.body.title;
     input.description = req.body.description;
@@ -51,7 +51,7 @@ export class TaskController {
     res.json(task);
   };
 
-  public deleteTask = async (req: Request, res: Response, next: NextFunction) => {
+  public deleteTask = async (req: Request, res: Response) => {
     if (!req.params.id) {
       res.statusCode = 400;
       return res.send('Missing id');

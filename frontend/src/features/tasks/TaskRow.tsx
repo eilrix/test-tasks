@@ -1,4 +1,4 @@
-import { Box, Button, Typography, TextField, Input, TextareaAutosize, CircularProgress } from '@mui/material';
+import { Box, Button, Input, CircularProgress } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import React from 'react';
@@ -6,6 +6,7 @@ import React from 'react';
 import { useTaskStore } from './hooks/useTaskStore';
 import { TaskModel } from './Task.model';
 import { useTaskForm } from './hooks/useTaskForm';
+import { Textarea } from 'src/components/Textarea';
 
 export function TaskRow({ task }: { task: TaskModel }) {
   const deleteTask = useTaskStore((s) => s.deleteTask);
@@ -46,8 +47,8 @@ export function TaskRow({ task }: { task: TaskModel }) {
             flexDirection: 'column',
           }}
         >
-          <Input disableUnderline sx={{ fontSize: '1.5em' }} {...register('title', { required: true })} />
-          <TextareaAutosize {...register('description', { required: true })} />
+          <Input disableUnderline sx={{ fontSize: '1.5em', mb: '5px' }} {...register('title', { required: true })} />
+          <Textarea {...register('description', { required: true })} />
         </Box>
         <Box>
           {loading && <CircularProgress />}

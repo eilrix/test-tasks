@@ -1,11 +1,9 @@
-import { Box, Button, Fab } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { fetchApi } from 'src/utils/client';
 import AddIcon from '@mui/icons-material/Add';
+import { Box, Fab } from '@mui/material';
+import React, { useEffect } from 'react';
 
-import { TaskModel } from './Task.model';
-import { TasksTable } from './TasksTable';
 import { useTaskStore } from './hooks/useTaskStore';
+import { TasksTable } from './TasksTable';
 
 export function Tasks() {
   const fetchTasks = useTaskStore((s) => s.fetchTasks);
@@ -17,7 +15,7 @@ export function Tasks() {
 
   return (
     <Box>
-      <Box sx={{ my: 2 }}>
+      <Box sx={{ my: 3 }}>
         <Fab color="primary" aria-label="add" onClick={() => createTask()}>
           <AddIcon />
         </Fab>

@@ -14,6 +14,8 @@ export async function seedMongo() {
     });
   }
 
+  console.log('Seeded database'); // eslint-disable-line
+
   process.exit(0);
 }
 
