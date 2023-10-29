@@ -1,7 +1,6 @@
 import { validate } from 'class-validator';
 import { NextFunction, Request, Response } from 'express';
 import { TaskCreateDto } from 'src/models/task-create.dto';
-import { TaskDeleteDto } from 'src/models/task-delete.dto';
 import { TaskUpdateDto } from 'src/models/task-update.dto';
 import { TaskService } from 'src/services/task.service';
 import { Service, Inject } from 'typedi';
@@ -35,7 +34,6 @@ export class TaskController {
     const input = new TaskUpdateDto();
     input.title = req.body.title;
     input.description = req.body.description;
-    input.id = req.body.id;
 
     const errors = await validate(input);
     if (errors.length) {
@@ -43,21 +41,23 @@ export class TaskController {
       return res.send(errors);
     }
 
-    const task = await this.taskService.updateTask(input);
+    const task = await this.taskService.updateTask(req.params.id, input);
+
+    if (!task) {
+      res.statusCode = 404;
+      return res.send('Task not found');
+    }
+
     res.json(task);
   };
 
   public deleteTask = async (req: Request, res: Response, next: NextFunction) => {
-    const input = new TaskDeleteDto();
-    input.id = req.body.id;
-
-    const errors = await validate(input);
-    if (errors.length) {
+    if (req.params.id) {
       res.statusCode = 400;
-      return res.send(errors);
+      return res.send('Missing id');
     }
 
-    const task = await this.taskService.deleteTask(input);
+    const task = await this.taskService.deleteTask(req.params.id);
 
     res.json({
       success: !!task,
