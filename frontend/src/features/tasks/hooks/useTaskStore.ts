@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { TaskModel } from '../Task.model';
 import { fetchApi } from 'src/utils/client';
+import { toast } from 'react-toastify';
 
 export const useTaskStore = create<{
   tasks: TaskModel[];
@@ -14,13 +15,19 @@ export const useTaskStore = create<{
   setTasks: (tasks) => set({ tasks }),
 
   fetchTasks: async () => {
-    const data = await fetchApi('tasks');
+    const data = await fetchApi('tasks').catch(() => {
+      toast.error('Failed to fetch tasks');
+      return [];
+    });
     set({ tasks: data });
   },
 
   deleteTask: async (id: string) => {
     const data = await fetchApi(`tasks/${id}`, {
       method: 'DELETE',
+    }).catch((error) => {
+      toast.error('Failed to delete task: ' + error.message);
+      return null;
     });
 
     console.log(`delete data: `, data); // eslint-disable-line
@@ -37,6 +44,9 @@ export const useTaskStore = create<{
         title: 'New task',
         description: 'New task description',
       }),
+    }).catch((error) => {
+      toast.error('Failed to create task: ' + error.message);
+      return null;
     });
 
     console.log(`create data: `, data); // eslint-disable-line
@@ -52,6 +62,9 @@ export const useTaskStore = create<{
     const data = await fetchApi(`tasks/${id}`, {
       method: 'PUT',
       body: JSON.stringify(task),
+    }).catch((error) => {
+      toast.error('Failed to update task: ' + error.message);
+      return null;
     });
 
     console.log(`update data: `, data); // eslint-disable-line

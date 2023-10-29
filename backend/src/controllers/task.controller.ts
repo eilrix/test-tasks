@@ -1,7 +1,7 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
-import { TaskCreateDto } from 'src/models/task-create.dto';
-import { TaskUpdateDto } from 'src/models/task-update.dto';
+import { TaskCreateDto } from 'src/dto/task-create.dto';
+import { TaskUpdateDto } from 'src/dto/task-update.dto';
 import { TaskService } from 'src/services/task.service';
 import { Service, Inject } from 'typedi';
 
@@ -27,6 +27,12 @@ export class TaskController {
     }
 
     const task = await this.taskService.createTask(input);
+
+    if (!task) {
+      res.statusCode = 500;
+      return res.send('Failed to create task');
+    }
+
     res.json(task);
   };
 

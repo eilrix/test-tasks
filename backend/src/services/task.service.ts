@@ -1,6 +1,6 @@
-import { TaskCreateDto } from 'src/models/task-create.dto';
-import { TaskUpdateDto } from 'src/models/task-update.dto';
-import { TaskDto } from 'src/models/task.dto';
+import { TaskCreateDto } from 'src/dto/task-create.dto';
+import { TaskUpdateDto } from 'src/dto/task-update.dto';
+import { TaskDto } from 'src/dto/task.dto';
 import { TaskModel } from 'src/models/task.model';
 import { Service } from 'typedi';
 
@@ -15,7 +15,12 @@ export class TaskService {
     task.title = input.title;
     task.description = input.description;
 
-    await task.save();
+    try {
+      await task.save();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
 
     return new TaskDto().parseModel(task);
   }
@@ -30,13 +35,23 @@ export class TaskService {
     task.title = input.title;
     task.description = input.description;
 
-    await task.save();
+    try {
+      await task.save();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
 
     return new TaskDto().parseModel(task);
   }
 
   async deleteTask(id: string): Promise<string> {
-    await TaskModel.deleteOne({ _id: id });
+    try {
+      await TaskModel.deleteOne({ _id: id });
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
 
     return id;
   }
