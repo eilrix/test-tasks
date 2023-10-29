@@ -52,7 +52,7 @@ export class TaskController {
   };
 
   public deleteTask = async (req: Request, res: Response, next: NextFunction) => {
-    if (req.params.id) {
+    if (!req.params.id) {
       res.statusCode = 400;
       return res.send('Missing id');
     }

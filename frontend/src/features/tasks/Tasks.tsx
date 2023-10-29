@@ -4,62 +4,24 @@ import { fetchApi } from 'src/utils/client';
 
 import { TaskModel } from './Task.model';
 import { TasksTable } from './TasksTable';
+import { useTaskStore } from './hooks/useTaskStore';
 
 export function Tasks() {
-  const [tasks, setTasks] = useState<TaskModel[]>([]);
-
-  const getTasks = async () => {
-    const data = await fetchApi('tasks');
-    setTasks(data);
-  };
+  const fetchTasks = useTaskStore((s) => s.fetchTasks);
+  const createTask = useTaskStore((s) => s.createTask);
 
   useEffect(() => {
-    getTasks();
+    fetchTasks();
   }, []);
-
-  const handleCreateTask = async () => {
-    const data = await fetchApi('task', {
-      method: 'POST',
-      body: JSON.stringify({
-        title: 'New task',
-        description: 'New task description',
-      }),
-    });
-
-    console.log(`create data: `, data);
-
-    getTasks();
-  };
-
-  const handleUpdateTask = async (task: TaskModel) => {
-    const data = await fetchApi(`task/${task.id}`, {
-      method: 'PUT',
-      body: JSON.stringify(task),
-    });
-
-    console.log(`update data: `, data);
-
-    getTasks();
-  };
-
-  const handleDeleteTask = async (id: string) => {
-    const data = await fetchApi(`task/${id}`, {
-      method: 'DELETE',
-    });
-
-    console.log(`delete data: `, data);
-
-    getTasks();
-  };
 
   return (
     <Box>
       <Box sx={{ my: 2 }}>
-        <Button onClick={handleCreateTask} variant="contained">
+        <Button onClick={createTask} variant="contained">
           Create task
         </Button>
       </Box>
-      <TasksTable tasks={tasks} onUpdateTask={handleUpdateTask} onDeleteTask={handleDeleteTask} />
+      <TasksTable />
     </Box>
   );
 }
