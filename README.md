@@ -1,6 +1,10 @@
 ## Installation
 
-`npm install`
+Install packages:
+
+```
+npm install
+```
 
 Run local MongoDB in a Docker container:
 
