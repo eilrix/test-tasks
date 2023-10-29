@@ -8,7 +8,7 @@ export const useTaskStore = create<{
   fetchTasks: () => Promise<void>;
   deleteTask: (id: string) => Promise<void>;
   createTask: () => Promise<void>;
-  updateTask: (task: TaskModel) => Promise<void>;
+  updateTask: (id: string, task: TaskModel) => Promise<TaskModel>;
 }>((set) => ({
   tasks: [],
   setTasks: (tasks) => set({ tasks }),
@@ -25,7 +25,9 @@ export const useTaskStore = create<{
 
     console.log(`delete data: `, data);
 
-    useTaskStore.getState().fetchTasks();
+    await useTaskStore.getState().fetchTasks();
+
+    return data;
   },
 
   createTask: async () => {
@@ -39,17 +41,21 @@ export const useTaskStore = create<{
 
     console.log(`create data: `, data);
 
-    useTaskStore.getState().fetchTasks();
+    await useTaskStore.getState().fetchTasks();
+
+    return data;
   },
 
-  updateTask: async (task: TaskModel) => {
-    const data = await fetchApi(`task/${task.id}`, {
+  updateTask: async (id: string, task: TaskModel) => {
+    const data = await fetchApi(`task/${id}`, {
       method: 'PUT',
       body: JSON.stringify(task),
     });
 
     console.log(`update data: `, data);
 
-    useTaskStore.getState().fetchTasks();
+    await useTaskStore.getState().fetchTasks();
+
+    return data;
   },
 }));

@@ -4,9 +4,8 @@ import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import React from 'react';
 
-import { TaskModel } from './Task.model';
-import { TaskRow } from './TaskRow';
 import { useTaskStore } from './hooks/useTaskStore';
+import { TaskRow } from './TaskRow';
 
 export function TasksTable() {
   const tasks = useTaskStore((s) => s.tasks);
@@ -16,7 +15,7 @@ export function TasksTable() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableBody>
           {tasks.map((task) => (
-            <TaskRow task={task} />
+            <TaskRow key={task.id} task={task} />
           ))}
         </TableBody>
       </Table>

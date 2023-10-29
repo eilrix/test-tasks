@@ -7,7 +7,7 @@ import { Service } from 'typedi';
 @Service('taskService')
 export class TaskService {
   async getTasks(): Promise<TaskDto[]> {
-    return (await TaskModel.find()).map((task) => new TaskDto().parseModel(task));
+    return (await TaskModel.find().sort({ createdAt: 'desc' })).map((task) => new TaskDto().parseModel(task));
   }
 
   async createTask(input: TaskCreateDto): Promise<TaskDto> {
